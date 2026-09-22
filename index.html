@@ -1,223 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find My Course</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Poppins,sans-serif;background:#f7f9fc;color:#172033}
-.find-course{max-width:1100px;margin:50px auto;padding:0 20px}
-.fc-box{background:#fff;border:1px solid #e8edf4;border-radius:20px;padding:34px;box-shadow:0 12px 35px rgba(20,35,60,.06)}
-.fc-head{text-align:center;margin-bottom:28px}
-.fc-head .tag{display:inline-block;background:#eef4ff;color:#274896;font-size:12px;font-weight:600;padding:7px 12px;border-radius:30px;margin-bottom:10px}
-.fc-head h2{font-size:30px;margin:0 0 8px}
-.fc-head p{margin:0;color:#687386;font-size:14px}
-.progress{height:5px;background:#edf0f5;border-radius:10px;margin:0 auto 28px;max-width:600px;overflow:hidden}
-.progress span{display:block;height:100%;width:25%;background:#274896;border-radius:10px;transition:.3s}
-.step{display:none;max-width:700px;margin:auto}
-.step.active{display:block}
-.step h3{font-size:20px;text-align:center;margin:0 0 20px}
-.options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.option{border:1px solid #e2e7ef;background:#fff;border-radius:12px;padding:16px;text-align:left;cursor:pointer;font-family:inherit;transition:.2s}
-.option:hover,.option.selected{border-color:#274896;background:#f4f7ff}
-.option strong{display:block;font-size:14px}
-.option small{display:block;color:#7b8494;margin-top:3px}
-.actions{display:flex;justify-content:center;gap:10px;margin-top:24px}
-.btn{border:0;border-radius:10px;padding:12px 22px;font-family:inherit;font-weight:600;cursor:pointer}
-.back{background:#eef1f5;color:#394457}
-.next{background:#274896;color:#fff}
-.result{display:none;max-width:850px;margin:auto}
-.result.active{display:block}
-.result-title{text-align:center;margin-bottom:20px}
-.result-title h3{margin:0 0 5px;font-size:22px}
-.result-title p{margin:0;color:#6d7788;font-size:13px}
-.course-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.course{border:1px solid #e3e8ef;border-radius:14px;padding:20px;background:#fff}
-.course .icon{width:42px;height:42px;border-radius:10px;background:#eef4ff;color:#274896;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:14px}
-.course h4{margin:0 0 6px;font-size:16px}
-.course p{font-size:12px;color:#727d8e;margin:0 0 15px;line-height:1.6}
-.course a{font-size:12px;color:#274896;font-weight:600;text-decoration:none}
-.restart{display:block;margin:24px auto 0;background:#eef1f5;color:#394457}
-@media(max-width:700px){
-.fc-box{padding:24px 16px}.fc-head h2{font-size:24px}
-.options,.course-list{grid-template-columns:1fr}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Shortlist Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Import Poppins font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette based on #00a3f4 */
+            --bg-dark: #0a1c2e;
+            --bg-light: #f4f8fb;
+            --text-light: #ffffff;
+            --text-dark: #0a1c2e;
+            /* Dark color used for text */
+            --text-muted-dark: #5c7285;
+            --text-muted-light: #8eb4d4;
+            --accent-blue: #00a3f4;
+            --accent-blue-hover: #008fdb;
+            --border-color: #c8dbe8;
+            --input-bg: #ffffff;
+            --divider-dark: rgba(0, 163, 244, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(10, 28, 46, 0.15);
+        }
+
+        /* --- Left Panel --- */
+        .left-panel {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 3.5rem 3rem;
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top left, rgba(0, 163, 244, 0.1), transparent 60%);
+            pointer-events: none;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            width: fit-content;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-blue);
+        }
+
+        .left-panel h1 {
+            font-size: 2.9rem;
+            line-height: 1.2;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-panel h1 em {
+            color: var(--accent-blue);
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .left-panel p.subtext {
+            color: var(--text-muted-light);
+            font-size: 0.8rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            border-top: 1px solid var(--divider-dark);
+            border-bottom: 1px solid var(--divider-dark);
+            padding: 2rem 0;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+
+        }
+
+        .stat-item {
+            border-left: 3px solid orange;
+            padding-left: 10px;
+        }
+
+        .stat-item h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #ffffff;
+
+        }
+
+        .stat-item p {
+            color: var(--text-muted-light);
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .how-we-help h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted-light);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .help-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .help-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: #cbdbe8;
+            font-weight: 400;
+        }
+
+        .help-list li .num {
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer-note {
+            margin-top: auto;
+            font-size: 0.7rem;
+            color: var(--text-muted-light);
+            border-top: 1px solid var(--divider-dark);
+            padding-top: 1.5rem;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        /* --- Right Panel --- */
+        .right-panel {
+            padding: 3.5rem 4rem;
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 1rem;
+        }
+
+        .form-header .eyebrow {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+
+        .form-header h2 {
+            font-size: 2.3rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.65rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            /* Ensures dropdown text is black */
+            background-color: var(--input-bg);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-weight: 400;
+        }
+
+        /* Force option elements to be black text on white background */
+        option {
+            color: var(--text-dark);
+            background-color: var(--input-bg);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 163, 244, 0.15);
+        }
+
+        /* --- Custom Select Wrapper and Arrow --- */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-wrapper select {
+            appearance: none;
+            /* Removes default OS arrow */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 2.5rem;
+            /* Make room for the custom arrow */
+            cursor: pointer;
+            background-color: var(--input-bg);
+            color: var(--text-dark);
+            /* Ensures the selected value is black */
+        }
+
+        .select-wrapper select:invalid {
+            color: #9ca3af;
+            /* Gray text only for the placeholder "Select one" */
+        }
+
+        .select-wrapper svg {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            /* Let clicks pass through to the select */
+            width: 12px;
+            height: 12px;
+            stroke: var(--text-dark);
+            /* Black arrow */
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-blue);
+            color: var(--text-light);
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 14px rgba(0, 163, 244, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        .form-footer-note {
+            font-size: 0.7rem;
+            color: var(--text-muted-dark);
+            text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel,
+            .right-panel {
+                width: 100%;
+                padding: 1.5rem;
+            }
+
+            .right-panel {
+                padding: 1.5rem;
+            }
+
+            .left-panel h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 0px;
+                border-radius: 0px;
+            }
+
+            .form-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<section class="find-course">
-<div class="fc-box">
+    <div class="container">
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Admissions open — 2026 intake
+            </div>
 
-<div class="fc-head">
-<span class="tag">COURSE DISCOVERY</span>
-<h2>Find My Course</h2>
-<p>Answer 4 simple questions and discover courses that match you.</p>
-</div>
+            <h1>Hundreds of colleges. <em>One shortlist</em> that's actually about you.</h1>
 
-<div class="progress"><span id="progressBar"></span></div>
+            <p class="subtext">
+                India's admission landscape is enormous, and most of it has nothing to do with your situation. Share a
+                few details and we'll cut through the noise with options that actually fit — not the full list.
+            </p>
 
-<div class="step active" data-step="1">
-<h3>What have you completed?</h3>
-<div class="options">
-<button class="option" data-value="12th"><strong>12th</strong><small>Higher secondary</small></button>
-<button class="option" data-value="Diploma"><strong>Diploma</strong><small>Technical or professional diploma</small></button>
-<button class="option" data-value="Graduation"><strong>Graduation</strong><small>Bachelor's degree completed</small></button>
-<button class="option" data-value="Working"><strong>Working Professional</strong><small>Looking to upskill or change career</small></button>
-</div>
-</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>1,000+</h3>
+                    <p>Partner colleges & universities</p>
+                </div>
+                <div class="stat-item">
+                    <h3>69</h3>
+                    <p>Entrance exams tracked</p>
+                </div>
+                <div class="stat-item">
+                    <h3>500,000+</h3>
+                    <p>Students placed to date</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Free</h3>
+                    <p>To share your details</p>
+                </div>
+            </div>
 
-<div class="step" data-step="2">
-<h3>What are you interested in?</h3>
-<div class="options">
-<button class="option" data-value="Technology"><strong>Technology</strong><small>Software, IT & data</small></button>
-<button class="option" data-value="Business"><strong>Business</strong><small>Management & entrepreneurship</small></button>
-<button class="option" data-value="Finance"><strong>Finance</strong><small>Accounting, banking & commerce</small></button>
-<button class="option" data-value="Design"><strong>Design</strong><small>Creative & visual fields</small></button>
-</div>
-</div>
+            <div class="how-we-help">
+                <h4>How we help after you share</h4>
+                <ul class="help-list">
+                    <li>
+                        <span class="num">1</span>
+                        <span>Hold a seat while you decide, so a deadline does not make the decision for you.</span>
+                    </li>
+                    <li>
+                        <span class="num">2</span>
+                        <span>Sit in on calls with college authorities and help you ask the questions that
+                            matter.</span>
+                    </li>
+                    <li>
+                        <span class="num">3</span>
+                        <span>Work out fee loans, EMIs, scholarships, and NRI quota paperwork when it applies.</span>
+                    </li>
+                </ul>
+            </div>
 
-<div class="step" data-step="3">
-<h3>What is your budget?</h3>
-<div class="options">
-<button class="option" data-value="low"><strong>Under ₹1 Lakh</strong><small>Budget-friendly options</small></button>
-<button class="option" data-value="mid"><strong>₹1–2 Lakh</strong><small>Mid-range options</small></button>
-<button class="option" data-value="high"><strong>₹2 Lakh+</strong><small>Premium options</small></button>
-</div>
-</div>
+            <div class="footer-note">
+                Your details go only to our counselling team — never sold or shared. One counsellor, one call, no spam.
+            </div>
+        </div>
 
-<div class="step" data-step="4">
-<h3>How would you like to study?</h3>
-<div class="options">
-<button class="option" data-value="Online"><strong>Online</strong><small>Study from anywhere</small></button>
-<button class="option" data-value="Offline"><strong>Offline</strong><small>Campus-based learning</small></button>
-<button class="option" data-value="Hybrid"><strong>Hybrid</strong><small>Online + campus learning</small></button>
-<button class="option" data-value="Any"><strong>I'm Open to Anything</strong><small>Show all suitable options</small></button>
-</div>
-</div>
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
+            <div class="form-header">
+                <div class="eyebrow">Tell us what you're looking for</div>
+                <h2>Get my shortlist</h2>
+            </div>
 
-<div class="actions" id="actions">
-<button class="btn back" id="backBtn" type="button" style="display:none">Back</button>
-<button class="btn next" id="nextBtn" type="button">Continue</button>
-</div>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="fullname">Full name</label>
+                    <input type="text" id="fullname" placeholder="As on your marksheet">
+                </div>
 
-<div class="result" id="result">
-<div class="result-title">
-<h3>Courses Recommended For You</h3>
-<p>Based on your answers, these courses may be a good match.</p>
-</div>
-<div class="course-list" id="courseList"></div>
-<button class="btn restart" id="restartBtn" type="button">Start Again</button>
-</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobile">Mobile / WhatsApp</label>
+                        <input type="tel" id="mobile" placeholder="10-digit number">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" placeholder="you@example.com">
+                    </div>
+                </div>
 
-</div>
-</section>
+                <div class="form-group">
+                    <label for="degree">Degree or program you want</label>
+                    <input type="text" id="degree" placeholder="e.g. B.Tech Computer Science, MBA, B.Sc Nursing">
+                </div>
 
-<script>
-(function(){
-const root=document.querySelector('.find-course');
-const steps=[...root.querySelectorAll('.step')];
-const progress=root.querySelector('#progressBar');
-const next=root.querySelector('#nextBtn');
-const back=root.querySelector('#backBtn');
-const actions=root.querySelector('#actions');
-const result=root.querySelector('#result');
-const list=root.querySelector('#courseList');
-let current=0;
-const answers={};
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <div class="select-wrapper">
+                            <select id="state" required>
+                                <option value="" disabled selected hidden>Select one</option>
+                                <option value="andhra-pradesh">Andhra Pradesh</option>
+                                <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                                <option value="assam">Assam</option>
+                                <option value="bihar">Bihar</option>
+                                <option value="chhattisgarh">Chhattisgarh</option>
+                                <option value="goa">Goa</option>
+                                <option value="gujarat">Gujarat</option>
+                                <option value="haryana">Haryana</option>
+                                <option value="himachal-pradesh">Himachal Pradesh</option>
+                                <option value="jharkhand">Jharkhand</option>
+                                <option value="karnataka">Karnataka</option>
+                                <option value="kerala">Kerala</option>
+                                <option value="madhya-pradesh">Madhya Pradesh</option>
+                                <option value="maharashtra">Maharashtra</option>
+                                <option value="manipur">Manipur</option>
+                                <option value="meghalaya">Meghalaya</option>
+                                <option value="mizoram">Mizoram</option>
+                                <option value="nagaland">Nagaland</option>
+                                <option value="odisha">Odisha</option>
+                                <option value="punjab">Punjab</option>
+                                <option value="rajasthan">Rajasthan</option>
+                                <option value="sikkim">Sikkim</option>
+                                <option value="tamil-nadu">Tamil Nadu</option>
+                                <option value="telangana">Telangana</option>
+                                <option value="tripura">Tripura</option>
+                                <option value="uttar-pradesh">Uttar Pradesh</option>
+                                <option value="uttarakhand">Uttarakhand</option>
+                                <option value="west-bengal">West Bengal</option>
+                            </select>
+                            <svg viewBox="0 0 24 24">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mode">Study Mode</label>
+                        <div class="select-wrapper">
+                            <select id="mode" required>
+                                <option value="" disabled selected hidden>Select one</option>
+                                <option value="Online">Online</option>
+                                <option value="Offline">Offline</option>
+                            </select>
+                            <svg viewBox="0 0 24 24">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
-function showStep(){
- steps.forEach((s,i)=>s.classList.toggle('active',i===current));
- progress.style.width=((current+1)/steps.length*100)+'%';
- back.style.display=current>0?'inline-block':'none';
- next.textContent=current===steps.length-1?'Show My Courses':'Continue';
-}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="intake">Preferred intake</label>
+                        <div class="select-wrapper">
+                            <select id="intake" required>
+                                <option value="" disabled selected hidden>Select one</option>
+                                <option value="2024">2026 - current session</option>
+                                <option value="2025">2027</option>
+                                <option value="2026">Just exploring for now</option>
+                            </select>
+                            <svg viewBox="0 0 24 24">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="college">Preferred college (optional)</label>
+                        <input type="text" id="college" placeholder="e.g. Christ University">
+                    </div>
+                </div>
 
-steps.forEach((step,index)=>{
- step.querySelectorAll('.option').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-   step.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));
-   btn.classList.add('selected');
-   answers[index]=btn.dataset.value;
-  });
- });
-});
+                <div class="form-group">
+                    <label for="message">Your message (optional)</label>
+                    <textarea id="message"
+                        placeholder="Anything specific you'd like us to know — budget, rank, questions..."></textarea>
+                </div>
 
-next.addEventListener('click',()=>{
- if(!answers[current]){
-  alert('Please select an option to continue.');
-  return;
- }
- if(current<steps.length-1){
-  current++;
-  showStep();
- }else{
-  showResults();
- }
-});
+                <button type="submit" class="submit-btn">Get my shortlist</button>
+            </form>
 
-back.addEventListener('click',()=>{
- if(current>0){current--;showStep();}
-});
+            <div class="form-footer-note">
+                Your details go only to our counselling team — never sold or shared. One counsellor, one call, no spam.
+            </div>
+        </div>
+    </div>
 
-function showResults(){
- steps.forEach(s=>s.style.display='none');
- actions.style.display='none';
- progress.parentElement.style.display='none';
- result.classList.add('active');
-
- const interest=answers[1];
- const courses={
-  Technology:[
-   ['BCA','Computer Applications • Software & IT'],
-   ['B.Sc Computer Science','Computing • Programming & Data'],
-   ['BCA AI & Data Science','AI • Data • Technology']
-  ],
-  Business:[
-   ['BBA','Business Administration • Management'],
-   ['BBA Business Analytics','Business • Data • Analytics'],
-   ['B.Com','Commerce • Finance • Business']
-  ],
-  Finance:[
-   ['B.Com','Commerce • Accounting & Finance'],
-   ['B.Com Finance','Finance • Banking • Accounting'],
-   ['BBA Finance','Management • Finance • Business']
-  ],
-  Design:[
-   ['B.Des','Design • Creative Practice'],
-   ['BA Visual Communication','Media • Visual Design'],
-   ['BCA UI/UX Design','Technology • Product Design']
-  ]
- };
- const chosen=courses[interest]||courses.Business;
- list.innerHTML=chosen.map((c,i)=>`
-  <article class="course">
-   <div class="icon">${i+1}</div>
-   <h4>${c[0]}</h4>
-   <p>${c[1]}</p>
-   <a href="#">View Course →</a>
-  </article>`).join('');
-}
-
-document.querySelector('#restartBtn').addEventListener('click',()=>{
- current=0;
- Object.keys(answers).forEach(k=>delete answers[k]);
- steps.forEach(s=>{
-  s.style.display='';
-  s.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));
- });
- result.classList.remove('active');
- actions.style.display='flex';
- progress.parentElement.style.display='block';
- showStep();
-});
-
-showStep();
-})();
-</script>
 </body>
+
 </html>
