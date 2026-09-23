@@ -828,6 +828,41 @@
                 /* text-align: center; */
             }
         }
+
+        @media (max-width: 600px) {
+    /* ... existing rules ... */
+
+    .left-panel {
+        width: 100%;
+        margin: 0;
+        padding: 2rem 1.5rem 1.5rem;
+        border-radius: 0 0 16px 16px;
+        min-height: auto;
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+
+        /* 👇 CHANGE THE IMAGE HERE */
+        background-image: url('media/mobile-bg.jpg');
+        background-position: center top;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+       .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(90deg, rgb(0, 21, 47), rgba(0, 44, 71, 0.591), rgba(0, 21, 47, 0.835));
+            pointer-events: none;
+        }
+
+    /* ... rest of your rules ... */
+}
     </style>
 </head>
 
