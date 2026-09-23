@@ -297,7 +297,6 @@
             position: relative;
             padding: 0.7rem 1rem;
             overflow: hidden;
-            
         }
 
         /* Vertical center divider */
@@ -343,7 +342,7 @@
 
         .stat-item h3 {
             margin: 0 0 0.55rem;
-            font-size: clamp(0.9rem, 1.8vw, 1.5rem);
+            font-size: clamp(0.9rem, 1.8vw, 1.6rem);
             font-weight: 500;
             line-height: 1;
             letter-spacing: -0.045em;
@@ -355,8 +354,8 @@
         }
 
         .stat-item:hover h3 {
-            transform: translateX(6px);
-            color: #ff7a00;
+            transform: translateY(-4px);
+            color: #b6ecff;
         }
 
 
@@ -366,11 +365,11 @@
 
         .stat-item p {
             margin: 0;
-            max-width: 140px;
+            max-width: 230px;
 
-            color: rgba(255, 255, 255, 0.52);
+            color: rgba(255, 255, 255, 0.749);
 
-            font-size: 0.62rem;
+            font-size: 0.65rem;
             line-height: 1.5;
 
             letter-spacing: 0.055em;
@@ -403,7 +402,7 @@
 
             transform: translate(-50%, -50%) scale(0.5);
 
-            background: rgba(255, 122, 0, 0.045);
+            background: rgba(253, 253, 253, 0.045);
 
             border-radius: 50%;
 
@@ -491,11 +490,13 @@
             }
         }
 
+        /* --- HOW WE HELP --- */
         .how-we-help h4 {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted-light);
+            letter-spacing: 1.5px;
+            color: #ffffff !important;
+            opacity: 1;
             margin-bottom: 1.5rem;
             position: relative;
             z-index: 1;
@@ -506,7 +507,7 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1.1rem;
             margin-bottom: 1.5rem;
             position: relative;
             z-index: 1;
@@ -514,26 +515,48 @@
 
         .help-list li {
             display: flex;
-            gap: 12px;
+            align-items: flex-start;
             font-size: 0.79rem;
-            line-height: 1.5;
+            line-height: 1.55;
             color: #ffffff;
             font-weight: 400;
         }
 
+        /* Number column — fixed width, right aligned */
         .help-list li .num {
-            border: 1px solid rgb(0, 191, 254);
-            color: rgb(255, 255, 255);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65rem;
+            flex: 0 0 auto;
+            width: 18px;
+            text-align: start;
+            color: #ffffff;
+            font-size: 0.79rem;
             font-weight: 500;
-            flex-shrink: 0;
-            margin-top: 2px;
+            line-height: 1.55;
+            letter-spacing: 0.02em;
+        }
+
+        /* Pipe column — fixed width, centered */
+        .help-list li .pipe {
+            flex: 0 0 auto;
+            width: 10px;
+            text-align: start;
+            color: rgb(108, 213, 255);
+            font-weight: 400;
+            line-height: 1.55;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        /* Description text */
+        .help-list li .help-text {
+            flex: 1;
+            font-size: 0.8rem;
+            line-height: 1.55;
+            color: rgb(255, 255, 255);
+        }
+
+        .help-list li .help-text strong {
+            font-weight: 500;
+            color: #ffffff;
         }
 
         .footer-note {
@@ -565,16 +588,15 @@
         }
 
         .form-header .eyebrow {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            color: var(--accent-blue-hover);
-            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.1px;
+            color: #0091d9;
+            font-weight: 400;
             margin-bottom: 0.9rem;
         }
 
         .form-header h2 {
-            font-size: 1.25rem;
+            font-size: 1.7rem;
             color: var(--text-dark);
             font-weight: 600;
             letter-spacing: -0.04rem !important;
@@ -602,7 +624,7 @@
         }
 
         label {
-            font-size: 0.80rem;
+            font-size: 0.89rem;
             font-weight: 400;
             color: rgb(0, 0, 0);
         }
@@ -615,7 +637,7 @@
             border: 1px solid rgba(0, 34, 113, 0.241);
             border-radius: 6px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-dark);
             /* Ensures dropdown text is black */
             background-color: var(--input-bg);
@@ -632,7 +654,7 @@
 
         input::placeholder,
         textarea::placeholder {
-            color: #5d6169;
+            color: #5d6169bb;
             font-weight: 400;
         }
 
@@ -830,39 +852,39 @@
         }
 
         @media (max-width: 600px) {
-    /* ... existing rules ... */
+            /* ... existing rules ... */
 
-    .left-panel {
-        width: 100%;
-        margin: 0;
-        padding: 2rem 1.5rem 1.5rem;
-        border-radius: 0 0 16px 16px;
-        min-height: auto;
-        animation: none !important;
-        opacity: 1 !important;
-        transform: none !important;
+            .left-panel {
+                width: 100%;
+                margin: 0;
+                padding: 2rem 1.5rem 1.5rem;
+                border-radius: 0 0 16px 16px;
+                min-height: auto;
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
 
-        /* 👇 CHANGE THE IMAGE HERE */
-        background-image: url('media/mobile-bg.jpg');
-        background-position: center top;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
+                /* 👇 CHANGE THE IMAGE HERE */
+                background-image: url('media/mobile-bg.jpg');
+                background-position: center top;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
 
-       .left-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                linear-gradient(90deg, rgb(0, 21, 47), rgba(0, 44, 71, 0.591), rgba(0, 21, 47, 0.835));
-            pointer-events: none;
+            .left-panel::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background:
+                    linear-gradient(90deg, rgb(0, 21, 47), rgba(0, 44, 71, 0.591), rgba(0, 21, 47, 0.835));
+                pointer-events: none;
+            }
+
+            /* ... rest of your rules ... */
         }
-
-    /* ... rest of your rules ... */
-}
     </style>
 </head>
 
@@ -913,35 +935,45 @@
                 <h4>HOW WE HELP</h4>
                 <ul class="help-list">
                     <li>
-                        <span class="num">1</span>
-                        <span>Personalised Guidance -
+                        <span class="num">01</span>
+                        <span class="pipe">|</span>
+                        <div class="help-text">
+                            <strong>Personalised Guidance</strong> -
                             Get guidance based on your academic background, interests and career goals.
-                        </span>
+                        </div>
                     </li>
                     <li>
-                        <span class="num">2</span>
-                        <span>Course & College Selection -
+                        <span class="num">02</span>
+                        <span class="pipe">|</span>
+                        <div class="help-text">
+                            <strong>Course &amp; College Selection</strong> -
                             Explore suitable courses and colleges based on your preferences.
-                        </span>
+                        </div>
                     </li>
                     <li>
-                        <span class="num">3</span>
-                        <span>Admission Support -
+                        <span class="num">03</span>
+                        <span class="pipe">|</span>
+                        <div class="help-text">
+                            <strong>Admission Support</strong> -
                             Get help with eligibility, applications, entrance exams and admission procedures.
-                        </span>
+                        </div>
                     </li>
                     <li>
-                        <span class="num">4</span>
-                        <span>Direct College Connect -
+                        <span class="num">04</span>
+                        <span class="pipe">|</span>
+                        <div class="help-text">
+                            <strong>Direct College Connect</strong> -
                             Connect with colleges and universities to get answers to your admission questions.
-                        </span>
+                        </div>
                     </li>
                     <li>
-                        <span class="num">5</span>
-                        <span>Additional Support -
+                        <span class="num">05</span>
+                        <span class="pipe">|</span>
+                        <div class="help-text">
+                            <strong>Additional Support</strong> -
                             Get guidance on scholarships, education loans, EMI options and other admission-related
                             requirements.
-                        </span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -954,8 +986,10 @@
         <!-- RIGHT PANEL -->
         <div class="right-panel">
             <div class="form-header">
-                <div class="eyebrow">Find the Right Course & College</div>
-                <h2>Tell us what you're looking for and our admission counsellor will help you explore suitable options.
+                <h2>Find the Right Course & College
+                    <div class="eyebrow"> Tell us what you're looking for and our admission counsellor will help you
+                        explore suitable options.</div>
+
                 </h2>
             </div>
 
@@ -989,16 +1023,23 @@
                                 <option value="" disabled selected hidden>Select your state</option>
                                 <option value="andhra-pradesh">Andhra Pradesh</option>
                                 <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                                <option value="Andaman and Nicoba">Andaman and Nicobar</option>
                                 <option value="assam">Assam</option>
                                 <option value="bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
                                 <option value="chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                <option value="Daman and Diu">Daman and Diu</option>
+                                <option value="Delhi">Delhi</option>
                                 <option value="goa">Goa</option>
                                 <option value="gujarat">Gujarat</option>
                                 <option value="haryana">Haryana</option>
                                 <option value="himachal-pradesh">Himachal Pradesh</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
                                 <option value="jharkhand">Jharkhand</option>
                                 <option value="karnataka">Karnataka</option>
                                 <option value="kerala">Kerala</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
                                 <option value="madhya-pradesh">Madhya Pradesh</option>
                                 <option value="maharashtra">Maharashtra</option>
                                 <option value="manipur">Manipur</option>
@@ -1006,14 +1047,15 @@
                                 <option value="mizoram">Mizoram</option>
                                 <option value="nagaland">Nagaland</option>
                                 <option value="odisha">Odisha</option>
+                                <option value="Puducherry">Puducherry</option>
                                 <option value="punjab">Punjab</option>
                                 <option value="rajasthan">Rajasthan</option>
                                 <option value="sikkim">Sikkim</option>
                                 <option value="tamil-nadu">Tamil Nadu</option>
-                                <option value="telangana">Telangana</option>
                                 <option value="tripura">Tripura</option>
-                                <option value="uttar-pradesh">Uttar Pradesh</option>
+                                <option value="telangana">Telangana</option>
                                 <option value="uttarakhand">Uttarakhand</option>
+                                <option value="uttar-pradesh">Uttar Pradesh</option>
                                 <option value="west-bengal">West Bengal</option>
                             </select>
                             <svg viewBox="0 0 24 24">
@@ -1025,8 +1067,7 @@
                         <label for="mode">Preferred Study Mode</label>
                         <div class="select-wrapper">
                             <select id="mode" required>
-                                <option value="" disabled selected hidden>Select one</option>
-                                <option value="Online">On Campus</option>
+                                <option value="" disabled="" selected="" hidden="">On Campus</option>
                                 <option value="Offline">Online</option>
                                 <option value="Offline">Hybrid</option>
                                 <option value="Offline">Not Sure</option>
@@ -1043,8 +1084,7 @@
                         <label for="intake">Preferred Intake</label>
                         <div class="select-wrapper">
                             <select id="intake" required>
-                                <option value="" disabled selected hidden>Select one</option>
-                                <option value="2024">2026–27</option>
+                                <option value="" disabled="" selected="" hidden="">2026–27</option>
                                 <option value="2025">2027–28</option>
                                 <option value="2026">Not Sure</option>
                             </select>
