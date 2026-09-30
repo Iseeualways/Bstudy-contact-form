@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bstudy Conmtact Form</title>
+    <title>Bstudy Contact Form</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://flagcdn.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap"
         rel="stylesheet">
@@ -97,7 +98,8 @@
 
             .left-panel,
             .right-panel,
-            .left-panel h1 {
+            .left-panel h1,
+            .country-dropdown {
                 animation: none !important;
             }
         }
@@ -580,7 +582,7 @@
 
         .help-text {
             font-size: 13.3px !important;
-        }   
+        }
 
         /* Description text */
         .help-list li .help-text {
@@ -741,6 +743,192 @@
             min-height: 80px;
         }
 
+        /* =================================
+   PHONE FIELD — COUNTRY FLAG DROPDOWN
+================================= */
+
+        .phone-group {
+            position: relative;
+        }
+
+        .phone-group.open {
+            z-index: 20;
+        }
+
+        /* Wrapper takes over the input's border so flag + number read as one field */
+        .phone-wrap {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            background-color: var(--input-bg);
+            border: 1px solid rgba(0, 34, 113, 0.241);
+            border-radius: 6px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .phone-wrap:focus-within,
+        .phone-group.open .phone-wrap {
+            border-color: var(--accent-blue);
+            box-shadow: 0 2px 0 rgba(4, 136, 202, 0.186);
+        }
+
+        .country-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-shrink: 0;
+            padding: 0 0.65rem 0 0.85rem;
+            background: transparent;
+            border: 0;
+            border-right: 1px solid rgba(0, 34, 113, 0.15);
+            border-radius: 5px 0 0 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .country-btn:hover {
+            background-color: rgba(0, 163, 244, 0.07);
+        }
+
+        .country-btn:focus-visible {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: -2px;
+        }
+
+        .flag {
+            display: block;
+            width: 22px;
+            height: 16px;
+            flex-shrink: 0;
+            object-fit: cover;
+            border-radius: 2px;
+            background: #eef1f4;
+            box-shadow: 0 0 0 1px rgba(10, 28, 46, 0.14);
+        }
+
+        .country-btn .dial {
+            font-weight: 500;
+            min-width: 2.1ch;
+        }
+
+        .country-btn .chev {
+            width: 10px;
+            height: 10px;
+            fill: none;
+            stroke: var(--text-dark);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s;
+        }
+
+        .phone-group.open .country-btn .chev {
+            transform: rotate(180deg);
+        }
+
+        .phone-wrap input#mobile {
+            flex: 1;
+            min-width: 0;
+            border: 0;
+            border-radius: 0 6px 6px 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .country-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            width: 330px;
+            max-width: calc(100vw - 2.5rem);
+            display: none;
+            background: #ffffff;
+            border: 1px solid rgba(0, 34, 113, 0.15);
+            border-radius: 8px;
+            box-shadow: 0 14px 34px rgba(10, 28, 46, 0.2);
+            overflow: hidden;
+            z-index: 30;
+        }
+
+        .phone-group.open .country-dropdown {
+            display: block;
+            animation: dropdownIn 0.18s ease both;
+        }
+
+        @keyframes dropdownIn {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .country-search-wrap {
+            padding: 0.6rem;
+            border-bottom: 1px solid rgba(0, 34, 113, 0.1);
+        }
+
+        .country-dropdown .country-search {
+            padding: 0.55rem 0.8rem;
+            font-size: 0.82rem;
+            border: 1px solid rgba(0, 34, 113, 0.2);
+        }
+
+        .country-list {
+            list-style: none;
+            max-height: 240px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .country-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.55rem 0.85rem;
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .country-list li .cname {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .country-list li .cdial {
+            flex-shrink: 0;
+            font-size: 0.78rem;
+            color: #5d6169;
+        }
+
+        .country-list li:hover,
+        .country-list li.active {
+            background: #eaf6fe;
+        }
+
+        .country-list li[aria-selected="true"] .cname {
+            font-weight: 600;
+        }
+
+        .country-empty {
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #5d6169;
+            cursor: default;
+        }
+
         .submit-btn {
             background-color: var(--accent-blue);
             color: var(--text-light);
@@ -820,6 +1008,11 @@
 
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .country-dropdown {
+                width: 100%;
+                max-width: 100%;
             }
         }
 
@@ -1086,9 +1279,34 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group phone-group" id="phoneGroup">
                         <label for="mobile">Mobile / WhatsApp <span class="req">*</span></label>
-                        <input type="tel" id="mobile" placeholder="Enter your mobile number">
+
+                        <div class="phone-wrap">
+                            <button type="button" class="country-btn" id="countryBtn" aria-haspopup="listbox"
+                                aria-expanded="false" aria-controls="countryList" aria-label="Select country code">
+                                <img class="flag" id="countryFlag" src="https://flagcdn.com/w40/in.png"
+                                    srcset="https://flagcdn.com/w80/in.png 2x" width="22" height="16" alt="">
+                                <span class="dial" id="countryDial">+91</span>
+                                <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                            <input type="tel" id="mobile" name="mobile" placeholder="Enter your mobile number"
+                                inputmode="numeric" autocomplete="tel-national"
+                                pattern="[6-9][0-9]{9}" title="Enter a valid 10-digit mobile number" required>
+                        </div>
+                        <input type="hidden" name="country_code" id="countryCode" value="+91">
+
+                        <div class="country-dropdown" id="countryDropdown">
+                            <div class="country-search-wrap">
+                                <input type="text" class="country-search" id="countrySearch"
+                                    placeholder="Search country or code" autocomplete="off"
+                                    aria-label="Search country or code">
+                            </div>
+                            <ul class="country-list" id="countryList" role="listbox" tabindex="-1"
+                                aria-label="Countries"></ul>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address <span class="req">*</span></label>
@@ -1173,6 +1391,185 @@
             </div>
         </div>
     </div>
+
+    <script>
+        (function () {
+            /* iso | name | dial code */
+            var RAW = "af|Afghanistan|93;al|Albania|355;dz|Algeria|213;as|American Samoa|1684;ad|Andorra|376;ao|Angola|244;ai|Anguilla|1264;ag|Antigua and Barbuda|1268;ar|Argentina|54;am|Armenia|374;aw|Aruba|297;au|Australia|61;at|Austria|43;az|Azerbaijan|994;bs|Bahamas|1242;bh|Bahrain|973;bd|Bangladesh|880;bb|Barbados|1246;by|Belarus|375;be|Belgium|32;bz|Belize|501;bj|Benin|229;bm|Bermuda|1441;bt|Bhutan|975;bo|Bolivia|591;ba|Bosnia and Herzegovina|387;bw|Botswana|267;br|Brazil|55;io|British Indian Ocean Territory|246;vg|British Virgin Islands|1284;bn|Brunei|673;bg|Bulgaria|359;bf|Burkina Faso|226;bi|Burundi|257;kh|Cambodia|855;cm|Cameroon|237;ca|Canada|1;cv|Cape Verde|238;ky|Cayman Islands|1345;cf|Central African Republic|236;td|Chad|235;cl|Chile|56;cn|China|86;co|Colombia|57;km|Comoros|269;cd|Congo (DRC)|243;cg|Congo (Republic)|242;ck|Cook Islands|682;cr|Costa Rica|506;ci|Côte d'Ivoire|225;hr|Croatia|385;cu|Cuba|53;cw|Curaçao|599;cy|Cyprus|357;cz|Czechia|420;dk|Denmark|45;dj|Djibouti|253;dm|Dominica|1767;do|Dominican Republic|1809;ec|Ecuador|593;eg|Egypt|20;sv|El Salvador|503;gq|Equatorial Guinea|240;er|Eritrea|291;ee|Estonia|372;sz|Eswatini|268;et|Ethiopia|251;fk|Falkland Islands|500;fo|Faroe Islands|298;fj|Fiji|679;fi|Finland|358;fr|France|33;gf|French Guiana|594;pf|French Polynesia|689;ga|Gabon|241;gm|Gambia|220;ge|Georgia|995;de|Germany|49;gh|Ghana|233;gi|Gibraltar|350;gr|Greece|30;gl|Greenland|299;gd|Grenada|1473;gp|Guadeloupe|590;gu|Guam|1671;gt|Guatemala|502;gg|Guernsey|44;gn|Guinea|224;gw|Guinea-Bissau|245;gy|Guyana|592;ht|Haiti|509;hn|Honduras|504;hk|Hong Kong|852;hu|Hungary|36;is|Iceland|354;in|India|91;id|Indonesia|62;ir|Iran|98;iq|Iraq|964;ie|Ireland|353;im|Isle of Man|44;il|Israel|972;it|Italy|39;jm|Jamaica|1876;jp|Japan|81;je|Jersey|44;jo|Jordan|962;kz|Kazakhstan|7;ke|Kenya|254;ki|Kiribati|686;xk|Kosovo|383;kw|Kuwait|965;kg|Kyrgyzstan|996;la|Laos|856;lv|Latvia|371;lb|Lebanon|961;ls|Lesotho|266;lr|Liberia|231;ly|Libya|218;li|Liechtenstein|423;lt|Lithuania|370;lu|Luxembourg|352;mo|Macao|853;mg|Madagascar|261;mw|Malawi|265;my|Malaysia|60;mv|Maldives|960;ml|Mali|223;mt|Malta|356;mh|Marshall Islands|692;mq|Martinique|596;mr|Mauritania|222;mu|Mauritius|230;yt|Mayotte|262;mx|Mexico|52;fm|Micronesia|691;md|Moldova|373;mc|Monaco|377;mn|Mongolia|976;me|Montenegro|382;ms|Montserrat|1664;ma|Morocco|212;mz|Mozambique|258;mm|Myanmar|95;na|Namibia|264;nr|Nauru|674;np|Nepal|977;nl|Netherlands|31;nc|New Caledonia|687;nz|New Zealand|64;ni|Nicaragua|505;ne|Niger|227;ng|Nigeria|234;nu|Niue|683;nf|Norfolk Island|672;kp|North Korea|850;mk|North Macedonia|389;mp|Northern Mariana Islands|1670;no|Norway|47;om|Oman|968;pk|Pakistan|92;pw|Palau|680;ps|Palestine|970;pa|Panama|507;pg|Papua New Guinea|675;py|Paraguay|595;pe|Peru|51;ph|Philippines|63;pl|Poland|48;pt|Portugal|351;pr|Puerto Rico|1787;qa|Qatar|974;re|Réunion|262;ro|Romania|40;ru|Russia|7;rw|Rwanda|250;ws|Samoa|685;sm|San Marino|378;st|São Tomé and Príncipe|239;sa|Saudi Arabia|966;sn|Senegal|221;rs|Serbia|381;sc|Seychelles|248;sl|Sierra Leone|232;sg|Singapore|65;sx|Sint Maarten|1721;sk|Slovakia|421;si|Slovenia|386;sb|Solomon Islands|677;so|Somalia|252;za|South Africa|27;kr|South Korea|82;ss|South Sudan|211;es|Spain|34;lk|Sri Lanka|94;kn|St Kitts and Nevis|1869;lc|St Lucia|1758;vc|St Vincent and the Grenadines|1784;sd|Sudan|249;sr|Suriname|597;se|Sweden|46;ch|Switzerland|41;sy|Syria|963;tw|Taiwan|886;tj|Tajikistan|992;tz|Tanzania|255;th|Thailand|66;tl|Timor-Leste|670;tg|Togo|228;tk|Tokelau|690;to|Tonga|676;tt|Trinidad and Tobago|1868;tn|Tunisia|216;tr|Türkiye|90;tm|Turkmenistan|993;tc|Turks and Caicos Islands|1649;tv|Tuvalu|688;ug|Uganda|256;ua|Ukraine|380;ae|United Arab Emirates|971;gb|United Kingdom|44;us|United States|1;uy|Uruguay|598;vi|US Virgin Islands|1340;uz|Uzbekistan|998;vu|Vanuatu|678;va|Vatican City|379;ve|Venezuela|58;vn|Vietnam|84;wf|Wallis and Futuna|681;ye|Yemen|967;zm|Zambia|260;zw|Zimbabwe|263";
+
+            var all = RAW.split(';').map(function (s) {
+                var p = s.split('|');
+                return { iso: p[0], name: p[1], dial: p[2] };
+            });
+            var india = all.filter(function (c) { return c.iso === 'in'; })[0];
+            var rest = all.filter(function (c) { return c.iso !== 'in'; })
+                .sort(function (a, b) { return a.name.localeCompare(b.name); });
+            var countries = [india].concat(rest);
+
+            var group = document.getElementById('phoneGroup');
+            var btn = document.getElementById('countryBtn');
+            var flagImg = document.getElementById('countryFlag');
+            var dialLbl = document.getElementById('countryDial');
+            var dropdown = document.getElementById('countryDropdown');
+            var search = document.getElementById('countrySearch');
+            var list = document.getElementById('countryList');
+            var hidden = document.getElementById('countryCode');
+            var input = document.getElementById('mobile');
+
+            var selected = india;
+            var maxDigits = 10;
+            var visible = countries;
+            var activeIdx = -1;
+
+            function flagSrc(iso, w) { return 'https://flagcdn.com/w' + w + '/' + iso + '.png'; }
+
+            function render(filter) {
+                var q = (filter || '').toLowerCase().trim().replace(/^\+/, '');
+                visible = q ? countries.filter(function (c) {
+                    return c.name.toLowerCase().indexOf(q) !== -1 || c.dial.indexOf(q) === 0 || c.iso === q;
+                }) : countries;
+
+                list.innerHTML = '';
+                if (!visible.length) {
+                    var empty = document.createElement('li');
+                    empty.className = 'country-empty';
+                    empty.textContent = 'No country found';
+                    list.appendChild(empty);
+                    activeIdx = -1;
+                    return;
+                }
+
+                var frag = document.createDocumentFragment();
+                visible.forEach(function (c, i) {
+                    var li = document.createElement('li');
+                    li.setAttribute('role', 'option');
+                    li.dataset.idx = i;
+                    li.setAttribute('aria-selected', c.iso === selected.iso ? 'true' : 'false');
+
+                    var img = document.createElement('img');
+                    img.className = 'flag';
+                    img.src = flagSrc(c.iso, 40);
+                    img.srcset = flagSrc(c.iso, 80) + ' 2x';
+                    img.width = 22; img.height = 16; img.alt = ''; img.loading = 'lazy';
+
+                    var name = document.createElement('span');
+                    name.className = 'cname';
+                    name.textContent = c.name;
+
+                    var dial = document.createElement('span');
+                    dial.className = 'cdial';
+                    dial.textContent = '+' + c.dial;
+
+                    li.appendChild(img); li.appendChild(name); li.appendChild(dial);
+                    frag.appendChild(li);
+                });
+                list.appendChild(frag);
+
+                var selIdx = visible.indexOf(selected);
+                setActive(selIdx > -1 ? selIdx : 0, true);
+            }
+
+            function setActive(i, center) {
+                var items = list.querySelectorAll('li[role="option"]');
+                if (!items.length) return;
+                i = Math.max(0, Math.min(items.length - 1, i));
+                if (activeIdx > -1 && items[activeIdx]) items[activeIdx].classList.remove('active');
+                activeIdx = i;
+                items[i].classList.add('active');
+                if (center) {
+                    list.scrollTop = items[i].offsetTop - list.clientHeight / 2 + items[i].clientHeight / 2;
+                } else {
+                    items[i].scrollIntoView({ block: 'nearest' });
+                }
+            }
+
+            function openDropdown() {
+                group.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+                search.value = '';
+                render('');
+                search.focus({ preventScroll: true });
+            }
+
+            function closeDropdown(returnFocus) {
+                if (!group.classList.contains('open')) return;
+                group.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                if (returnFocus) btn.focus();
+            }
+
+            function choose(c) {
+                selected = c;
+                flagImg.src = flagSrc(c.iso, 40);
+                flagImg.srcset = flagSrc(c.iso, 80) + ' 2x';
+                dialLbl.textContent = '+' + c.dial;
+                hidden.value = '+' + c.dial;
+
+                if (c.iso === 'in') {
+                    maxDigits = 10;
+                    input.pattern = '[6-9][0-9]{9}';
+                    input.title = 'Enter a valid 10-digit mobile number';
+                } else {
+                    maxDigits = 15;
+                    input.pattern = '[0-9]{6,15}';
+                    input.title = 'Enter a valid mobile number (6–15 digits)';
+                }
+                input.value = input.value.slice(0, maxDigits);
+                closeDropdown(false);
+                input.focus();
+            }
+
+            btn.addEventListener('click', function () {
+                group.classList.contains('open') ? closeDropdown(false) : openDropdown();
+            });
+
+            btn.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (!group.classList.contains('open')) openDropdown();
+                }
+            });
+
+            search.addEventListener('input', function () { render(search.value); });
+
+            search.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIdx + 1); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIdx - 1); }
+                else if (e.key === 'Enter') {
+                    e.preventDefault(); /* never submit the form from the search box */
+                    if (visible[activeIdx]) choose(visible[activeIdx]);
+                }
+                else if (e.key === 'Escape') { e.preventDefault(); closeDropdown(true); }
+                else if (e.key === 'Tab') { closeDropdown(false); }
+            });
+
+            list.addEventListener('click', function (e) {
+                var li = e.target.closest('li[role="option"]');
+                if (li) choose(visible[+li.dataset.idx]);
+            });
+
+            list.addEventListener('mousemove', function (e) {
+                var li = e.target.closest('li[role="option"]');
+                if (li && +li.dataset.idx !== activeIdx) setActive(+li.dataset.idx);
+            });
+
+            document.addEventListener('mousedown', function (e) {
+                if (!group.contains(e.target)) closeDropdown(false);
+            });
+
+            /* Digits only; tidy pasted numbers like +91 98765 43210 or 098765 43210 */
+            input.addEventListener('input', function () {
+                var v = input.value.replace(/\D/g, '');
+                if (selected.iso === 'in') {
+                    if (v.length > 10 && v.indexOf('91') === 0) v = v.slice(2);
+                    if (v.length > 10 && v.charAt(0) === '0') v = v.slice(1);
+                }
+                input.value = v.slice(0, maxDigits);
+            });
+
+            render('');
+        })();
+    </script>
 
 </body>
 
